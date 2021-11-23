@@ -27,15 +27,15 @@ public class Goods {
 
       }
 
-
+//https://stackoverflow.com/questions/4246077/matching-numbers-with-regular-expressions-only-digits-and-commas/4247184#4247184
 public double readValue(){
       Scanner scanner = new Scanner(System.in);
-      Pattern pattern = Pattern.compile("[0-9]");
+      Pattern pattern = Pattern.compile("^([+-]?)(?=\\d|\\.\\d)\\d*(\\.\\d*)?([Ee]([+-]?\\d+))?$");
       String input="";
       while (1==1)
        {
             input = scanner.next();
-            if (pattern.matches("[0-9]",input)){
+            if (pattern.matches("^([+-]?)(?=\\d|\\.\\d)\\d*(\\.\\d*)?([Ee]([+-]?\\d+))?$",input)){
                   break;
             }
             else {

@@ -29,8 +29,8 @@ public class Receipt extends Goods {
     public void add() throws IOException {
 
         System.out.println("Input position");
-        Scanner scanner = new Scanner(System.in);
-        String position = scanner.next();
+
+        String position = readString();
         double price=0;
         double amount=0;
         int index = (findPosition(position));
@@ -39,15 +39,15 @@ public class Receipt extends Goods {
         if (indexReceipt == -1) {
             if (index != -1) {
                 System.out.println("Input amount");
-                amount = Double.parseDouble(scanner.next());
+                amount = readValue();
                 price = goods.get(index).price;
                 receipt = new Receipt(position, price, amount);
             } else {
                 System.out.println("Position does not exist. Free position will be added");
                 System.out.println("Input price");
-                price = Double.parseDouble(scanner.next());
+                price = readValue();
                 System.out.println("Input amount");
-                amount = Double.parseDouble(scanner.next());
+                amount = readValue();
                 receipt = new Receipt(position, price, amount);
             }
             receipts.add(receipt);
@@ -82,14 +82,13 @@ public class Receipt extends Goods {
 
     public void remove(){
         System.out.println("Input position");
-        Scanner scanner = new Scanner(System.in);
-        String position = scanner.next();
+           String position = readString();
         double amount =0;
         int index = (findReceipt(position));
         if (index!=-1)
         {
             System.out.println("Input amount");
-            amount=Double.parseDouble(scanner.next());
+            amount=readValue();
             if ((receipts.get(index).amount-amount)<=0)
             {
                 receipts.remove(index);
