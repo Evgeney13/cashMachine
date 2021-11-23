@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Goods goods = new Goods();
+        Receipt receipt = new Receipt();
         goods.initialize();
 
 
@@ -21,9 +22,14 @@ public class Main {
                             case "show":
                                 goods.show();
                                 break;
-                            case "updatePrice":
+                            case "findPosition":
                                 System.out.println("input position");
                                 String position = scanner.next();
+                                System.out.println(goods.findPosition(position));
+                                break;
+                            case "updatePrice":
+                                System.out.println("input position");
+                                position = scanner.next();
                                 System.out.println("input price");
                                 String price = scanner.next();
                                 goods.updatePrices(position,price);
@@ -32,10 +38,22 @@ public class Main {
                                 System.out.println("input position");
                                 position = scanner.next();
                                 goods.removePrices(position);
+                                break;
                             case "commit":
                                 System.out.println("prices saved");
                                 goods.commit();
                                 goods.show();
+                                break;
+                            case "newSell":
+                                receipt.newSell();
+                                break;
+                            case "add":
+                                receipt.add();
+                                System.out.println("Receipt has been updated");
+                                receipt.showReceipt();
+                                break;
+                            case "showReceipt":
+                                receipt.showReceipt();
                                 break;
                             case "exit":
                                 input="exit";

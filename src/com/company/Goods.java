@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Goods {
       String position;
       double price;
-      double amount;
       ArrayList<Goods> goods;
 
 
@@ -35,17 +34,23 @@ public void show(){
 }
 
 
-public void updatePrices(String position, String price) {
-      Boolean found = false;
+
+public int findPosition(String position) {
+            int index = -1;
       for (int i=0; i<goods.size(); i++) {
             if (Objects.equals(goods.get(i).position, position)) {
-                  found = true;
-                  goods.add(new Goods(position, Double.parseDouble(price)));
-                  goods.remove(i);
-                  break;
+                  index=i;
             }
-         }
-      if (found) {
+      }
+      return index;
+}
+
+public void updatePrices(String position, String price) {
+      int index=findPosition(position);
+
+      if (index!=-1) {
+            goods.add(new Goods(position, Double.parseDouble(price)));
+            goods.remove(index);
             System.out.println("Position "+position+" has been updated. New price is "+price);
       }
       else
@@ -55,19 +60,14 @@ public void updatePrices(String position, String price) {
 
 
 public void removePrices(String position) {
-      Boolean found = false;
-      for (int i = 0; i < goods.size(); i++) {
-            if (Objects.equals(goods.get(i).position, position)) {
-                  found = true;
-                  goods.remove(i);
-                  break;
-            }
-      }
-      if (found) {
+      int index=findPosition(position);
+
+      if (index!=-1) {
+            goods.remove(index);
             System.out.println("Position "+position+" has been removed");
       }
       else
-            System.out.println("Warn! Position "+position+" is not found. New position will be created");
+            System.out.println("Warn! Position "+position+" is not found. Nothing to remove");
       }
 
 public void commit() throws IOException {
