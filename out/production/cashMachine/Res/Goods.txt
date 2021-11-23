@@ -1,2 +1,7 @@
-tomato,100.0
-cucumber,1.0
+flour,25.5
+armchair,305.0
+cucumber,110.0
+waterMelon,100.0
+tomato,150.0
+xiaomi10,300.0
+avocado,1.0

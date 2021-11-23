@@ -4,14 +4,18 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Goods {
       String position;
       double price;
-      ArrayList<Goods> goods;
 
+      ArrayList<Goods> goods;
+      public static final String ANSI_RED = "\u001B[31m";
+      public static final String ANSI_RESET = "\u001B[0m";
 
       public Goods (String position, double price)
       {
@@ -24,8 +28,31 @@ public class Goods {
       }
 
 
+public double readValue(){
+      Scanner scanner = new Scanner(System.in);
+      Pattern pattern = Pattern.compile("[0-9]");
+      String input="";
+      while (1==1)
+       {
+            input = scanner.next();
+            if (pattern.matches("[0-9]",input)){
+                  break;
+            }
+            else {
+                  System.out.println("the value seems to be incorrect. Please re-try input");
+            }
+      }
 
+      double output = Double.parseDouble(input);
+      return output;
+}
 
+public String readString(){
+      Scanner scanner = new Scanner(System.in);
+      String input=scanner.next();
+      String output=input.toLowerCase();
+      return output;
+}
 
 public void show(){
             for (int i=0; i<goods.size(); i++){

@@ -3,6 +3,7 @@ package com.company;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Receipt extends Goods {
@@ -26,27 +27,84 @@ public class Receipt extends Goods {
     }
 
     public void add() throws IOException {
-        initialize();
+
         System.out.println("Input position");
         Scanner scanner = new Scanner(System.in);
         String position = scanner.next();
-
+        double price=0;
+        double amount=0;
         int index = (findPosition(position));
+        int indexReceipt = findReceipt(position);
         Receipt receipt = new Receipt();
-        if (index != -1) {
-            System.out.println("Input amount");
-            amount = Double.parseDouble(scanner.next());
-            price = goods.get(index).price;
-            receipt = new Receipt(position, price, amount);
-        } else {
-            System.out.println("Position does not exist. Free position will be added");
-            System.out.println("Input price");
-            price = Double.parseDouble(scanner.next());
-            System.out.println("Input amount");
-            amount = Double.parseDouble(scanner.next());
-            receipt = new Receipt(position, price, amount);
+        if (indexReceipt == -1) {
+            if (index != -1) {
+                System.out.println("Input amount");
+                amount = Double.parseDouble(scanner.next());
+                price = goods.get(index).price;
+                receipt = new Receipt(position, price, amount);
+            } else {
+                System.out.println("Position does not exist. Free position will be added");
+                System.out.println("Input price");
+                price = Double.parseDouble(scanner.next());
+                System.out.println("Input amount");
+                amount = Double.parseDouble(scanner.next());
+                receipt = new Receipt(position, price, amount);
+            }
+            receipts.add(receipt);
         }
-        receipts.add(receipt);
+        else
+        {
+            System.out.println("Input amount");
+            amount = readValue();
+            receipt = new Receipt(position, receipts.get(indexReceipt).price, amount+receipts.get(indexReceipt).amount);
+            receipts.add(receipt);
+            receipts.remove(indexReceipt);
+        }
+    }
+
+    public int findReceipt(String position) {
+        int index = -1;
+        for (int i = 0; i < receipts.size(); i++) {
+            if (Objects.equals(receipts.get(i).position, position)) {
+                index = i;
+            }}
+            return index;
+
+    }
+
+    public double sum(){
+        double sum = 0;
+                 for (int i = 0; i < receipts.size(); i++) {
+                sum = sum + receipts.get(i).price*receipts.get(i).amount;
+            }
+        return sum;
+    }
+
+    public void remove(){
+        System.out.println("Input position");
+        Scanner scanner = new Scanner(System.in);
+        String position = scanner.next();
+        double amount =0;
+        int index = (findReceipt(position));
+        if (index!=-1)
+        {
+            System.out.println("Input amount");
+            amount=Double.parseDouble(scanner.next());
+            if ((receipts.get(index).amount-amount)<=0)
+            {
+                receipts.remove(index);
+            }
+            else
+            {
+                receipts.add(new Receipt(position,receipts.get(index).price,receipts.get(index).amount-amount));
+                receipts.remove(index);
+            }
+            showReceipt();
+        }
+        else
+        {
+            System.out.println("Position you have requested to remove is absent in the receipt");
+        }
     }
 
     public void showReceipt() throws NullPointerException {
@@ -61,8 +119,10 @@ public class Receipt extends Goods {
         }
         catch (NullPointerException exception)
         {
-            System.out.println("Please use newSell before");
+            System.out.println(ANSI_RED + "Please use newSell before" + ANSI_RESET);
         }
+        System.out.println("---------");
+        System.out.println("Total "+sum()+" USD");
         System.out.println("---------");
         Date date = new Date();
         System.out.println(date.toString());

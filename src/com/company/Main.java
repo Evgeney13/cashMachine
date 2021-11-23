@@ -11,6 +11,7 @@ public class Main {
         Goods goods = new Goods();
         Receipt receipt = new Receipt();
         goods.initialize();
+        receipt.newSell();
 
 
 
@@ -54,6 +55,9 @@ public class Main {
                                 break;
                             case "showReceipt":
                                 receipt.showReceipt();
+                                break;
+                            case "remove":
+                                receipt.remove();
                                 break;
                             case "exit":
                                 input="exit";
