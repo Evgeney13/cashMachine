@@ -133,6 +133,9 @@ public class Receipt extends Goods {
          BufferedWriter bw = new BufferedWriter(new FileWriter(f));
          bw.write(makeRecept());
          bw.close();
+         System.out.println("Recept have been saved");
+         Statistic st = new Statistic(unixTime, sum());
+         st.save();
          newSell();
      }
 }
