@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Goods goods = new Goods();
+        Statistic statistic = new Statistic();
         Receipt receipt = new Receipt();
         goods.initialize();
         receipt.newSell();
@@ -64,6 +65,12 @@ public class Main {
                                 break;
                             case "exit":
                                 input="exit";
+                                break;
+                            case "statistic":
+                                statistic.showAll();
+                                break;
+                            case "report":
+                                statistic.showStat();
                                 break;
                             default:
                                 System.out.println("unknown command");
