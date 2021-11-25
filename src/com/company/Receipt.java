@@ -1,6 +1,10 @@
 package com.company;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -106,25 +110,29 @@ public class Receipt extends Goods {
         }
     }
 
-    public void showReceipt() throws NullPointerException {
-        System.out.println("Company name");
-        System.out.println("---------");
-        System.out.println("position || price || amount");
-
-        try {
-            for (int i = 0; i < receipts.size(); i++) {
-                System.out.println(receipts.get(i).position + " " + receipts.get(i).price + " " + receipts.get(i).amount);
-            }
+    public String makeRecept(){
+        String output="Company name\n---------\nposition || price || amount\n";
+        for (int i = 0; i < receipts.size(); i++) {
+            output= output +(receipts.get(i).position + " " + receipts.get(i).price + " " + receipts.get(i).amount+ "\n");
         }
-        catch (NullPointerException exception)
-        {
-            System.out.println(ANSI_RED + "Please use newSell before" + ANSI_RESET);
-        }
-        System.out.println("---------");
-        System.out.println("Total "+sum()+" USD");
-        System.out.println("---------");
         Date date = new Date();
-        System.out.println(date.toString());
-
+        output=output+"---------\nTotal "+sum()+" USD\n---------\n"+date.toString();
+        return output;
     }
+
+    public void showReceipt(){
+        System.out.println(makeRecept());
+    }
+
+
+
+     public void saveReceipt() throws IOException {
+         long unixTime = Instant.now().getEpochSecond();
+         File f = new File(String.valueOf(unixTime));
+         f.createNewFile();
+         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+         bw.write(makeRecept());
+         bw.close();
+         newSell();
+     }
 }

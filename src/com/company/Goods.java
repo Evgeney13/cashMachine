@@ -17,6 +17,9 @@ public class Goods {
       public static final String ANSI_RED = "\u001B[31m";
       public static final String ANSI_RESET = "\u001B[0m";
 
+      public static final String registerAddress = "src/Res/Goods.txt";
+      public static final String receiptsPath = "src/Res/Goods.txt";
+
       public Goods (String position, double price)
       {
            this.position=position;
@@ -32,7 +35,7 @@ public double readValue(){
       Scanner scanner = new Scanner(System.in);
       Pattern pattern = Pattern.compile("^([+-]?)(?=\\d|\\.\\d)\\d*(\\.\\d*)?([Ee]([+-]?\\d+))?$");
       String input="";
-      while (1==1)
+      while (true)
        {
             input = scanner.next();
             if (pattern.matches("^([+-]?)(?=\\d|\\.\\d)\\d*(\\.\\d*)?([Ee]([+-]?\\d+))?$",input)){
@@ -108,7 +111,7 @@ public void commit() throws IOException {
 
       public  ArrayList<Goods> initialize() throws IOException {
             ArrayList<Goods> goods = new ArrayList<Goods>();
-            BufferedReader br = new BufferedReader(Files.newBufferedReader(Path.of("src/Res/Goods.txt")));
+            BufferedReader br = new BufferedReader(Files.newBufferedReader(Path.of(registerAddress)));
             String line = br.readLine();
             while (line != null)
             {

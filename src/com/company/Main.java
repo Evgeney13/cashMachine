@@ -56,6 +56,9 @@ public class Main {
                             case "showReceipt":
                                 receipt.showReceipt();
                                 break;
+                            case "close":
+                                receipt.saveReceipt();
+                                break;
                             case "remove":
                                 receipt.remove();
                                 break;
