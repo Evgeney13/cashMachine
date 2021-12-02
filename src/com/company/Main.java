@@ -1,19 +1,19 @@
 package com.company;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         Goods goods = new Goods();
         Statistic statistic = new Statistic();
         Receipt receipt = new Receipt();
         goods.initialize();
         receipt.newSell();
-
 
 
         Scanner scanner = new Scanner(System.in);

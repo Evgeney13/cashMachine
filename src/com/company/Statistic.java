@@ -6,7 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Statistic extends Receipt {
     Long data;
@@ -77,19 +80,32 @@ public class Statistic extends Receipt {
         }
     }
 
-    public void showStat() throws IOException {
+    public void showStat() throws IOException, ParseException {
         load();
-        System.out.println("Введите дату начала: ");
+        System.out.println("Введите дату начала в формате dd-MM-yyyy: ");
         String date1 = readString();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate = df.parse(date1);
+        System.out.println(startDate);
         System.out.println("Введите конечную дату: ");
         String date2 = readString();
+        Date startEndDate = df.parse(date2);
         double total = 0;
+        ArrayList<Long> unicDates = new ArrayList<>();
+        ArrayList<Statistic> report = new ArrayList<>();
         for (int i=0; i<statistics.size(); i++){
-            if (statistics.get(i).data >= Long.parseLong(date1) && statistics.get(i).data < Long.parseLong(date2))
+            if (statistics.get(i).data >= startDate.getTime()/1000 && statistics.get(i).data < startEndDate.getTime()/1000)
             {
-                System.out.println(statistics.get(i).data+" "+statistics.get(i).sum);
+                if (!unicDates.contains(statistics.get(i).data)){
+                    unicDates.add(statistics.get(i).data);
+                    report.add(statistics.get(i));
+                } else {
+                    report.add(statistics.get(i));
+                }
+                System.out.println( df.format(new Date(statistics.get(i).data*1000))+" "+statistics.get(i).sum);
                 total += statistics.get(i).sum;
             }
+
         }
         System.out.println("Total: " + total);
     }
