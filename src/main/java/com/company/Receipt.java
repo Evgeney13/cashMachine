@@ -134,8 +134,20 @@ public class Receipt extends Goods {
          bw.write(makeRecept());
          bw.close();
          System.out.println("Recept have been saved");
+         System.out.println("send to email? Yes|No");
+         String option = readString();
+         if (option.equals("yes"))
+         {sendReceipt();}
          Statistic st = new Statistic(unixTime, sum());
          st.save();
          newSell();
+     }
+
+     public void sendReceipt() {
+         String body = makeRecept();
+         System.out.println("Input email");
+         String email = readString();
+         SendEmail sendEmail = new SendEmail();
+         sendEmail.sendAttachment(body,email);
      }
 }

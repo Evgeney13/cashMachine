@@ -17,7 +17,7 @@ public class Goods {
       public static final String ANSI_RED = "\u001B[31m";
       public static final String ANSI_RESET = "\u001B[0m";
 
-      public static final String registerAddress = "src/Res/Goods.txt";
+      public static final String registerAddress = "src/main/java/Res/Goods.txt";
       public static final String receiptsPath = "src/Res/Goods.txt";
 
       public Goods (String position, double price)
