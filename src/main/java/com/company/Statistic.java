@@ -76,20 +76,16 @@ public class Statistic extends Receipt {
     public void showAll() throws IOException {
         load();
         for (int i=0; i<statistics.size(); i++){
-            System.out.println(statistics.get(i).data+" "+statistics.get(i).sum);
+            System.out.println(formatDate(statistics.get(i).data)+" "+statistics.get(i).sum);
         }
     }
 
     public void showStat() throws IOException, ParseException {
         load();
         System.out.println("Введите дату начала в формате dd-MM-yyyy: ");
-        String date1 = readString();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date startDate = df.parse(date1);
-        System.out.println(startDate);
-        System.out.println("Введите конечную дату: ");
-        String date2 = readString();
-        Date startEndDate = df.parse(date2);
+        Date startDate = readDate();
+        System.out.println("Введите дату конца в формате dd-MM-yyyy: ");
+        Date startEndDate = readDate();
         double total = 0;
         ArrayList<Long> unicDates = new ArrayList<>();
         ArrayList<Statistic> report = new ArrayList<>();
@@ -102,7 +98,7 @@ public class Statistic extends Receipt {
                 } else {
                     report.add(statistics.get(i));
                 }
-                System.out.println( df.format(new Date(statistics.get(i).data*1000))+" "+statistics.get(i).sum);
+                System.out.println( formatDate(statistics.get(i).data)+" "+statistics.get(i).sum);
                 total += statistics.get(i).sum;
             }
 

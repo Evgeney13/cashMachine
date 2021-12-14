@@ -3,10 +3,9 @@ package com.company;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Goods {
@@ -56,6 +55,37 @@ public String readString(){
       String output=input.toLowerCase();
       return output;
 }
+
+
+
+public Date readDate() throws ParseException {
+            Scanner scanner = new Scanner(System.in);
+            Pattern pattern = Pattern.compile("[0-9][0-9]-[0-9][0-9]-[2][0][0-9][0-9]");
+            String input="";
+
+      while (true)
+      {
+            input = scanner.next();
+            if (pattern.matches("[0-9][0-9]-[0-9][0-9]-[12][09][0-9][0-9]",input)){
+                  break;
+            }
+            else {
+                  System.out.println("дата должна быть в формате dd-MM-20yy Please re-try input");
+            }
+      }
+
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            Date output = df.parse(input);
+            return output;
+}
+
+
+public String formatDate(Long input){
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            String output = df.format(new Date(input*1000));
+            return output;
+}
+
 
 public void show(){
             for (int i=0; i<goods.size(); i++){
