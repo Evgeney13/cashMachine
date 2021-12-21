@@ -151,11 +151,5 @@ public class Receipt extends Goods {
          sendEmail.sendAttachment(body,email);
      }
 
-    public void sendReceiptTelegram() throws IOException {
-        String body = makeRecept();
-        System.out.println("Input telegram");
-        String email = readString();
-        SendTelegram sendTelegram = new SendTelegram();
-        sendTelegram.send(body,email);
-    }
+
 }

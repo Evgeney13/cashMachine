@@ -14,6 +14,8 @@ public class Main {
         Receipt receipt = new Receipt();
         goods.initialize();
         receipt.newSell();
+        ReadTelegram readTelegram = new ReadTelegram();
+        readTelegram.start();
 
 
         Scanner scanner = new Scanner(System.in);
