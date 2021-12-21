@@ -127,6 +127,7 @@ public class Receipt extends Goods {
 
 
      public void saveReceipt() throws IOException {
+
          long unixTime = Instant.now().getEpochSecond();
          File f = new File(String.valueOf(unixTime));
          f.createNewFile();

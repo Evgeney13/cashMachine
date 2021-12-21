@@ -74,9 +74,6 @@ public class Main {
                             case "report":
                                 statistic.showStat();
                                 break;
-                            case "sendTelegram":
-                                receipt.sendReceiptTelegram();
-                                break;
                             default:
                                 System.out.println("unknown command");
             }

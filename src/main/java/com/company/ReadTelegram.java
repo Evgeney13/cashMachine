@@ -108,7 +108,7 @@ public class ReadTelegram extends Thread {
      public void clearProcessed() {
         int max=findMax();
          for (int i = 0; i < chats.size(); i++) {
-             if (chats.get(i).chat_id<max && chats.get(i).processed){
+             if (chats.get(i).message_id<max && chats.get(i).processed){
                  chats.remove(i);
              }
          }
@@ -117,8 +117,8 @@ public class ReadTelegram extends Thread {
      public int findMax(){
          int max=0;
          for (int i = 0; i < chats.size(); i++) {
-             if(chats.get(i).chat_id>max)
-             {max=chats.get(i).chat_id;
+             if(chats.get(i).message_id>max)
+             {max=chats.get(i).message_id;
              }
          }
          return max;
@@ -138,7 +138,7 @@ public class ReadTelegram extends Thread {
 
     public void showMessages(){
         for (int i = 0; i < chats.size(); i++) {
-            System.out.println("chat_id: "+chats.get(i).chat_id+" message_id "+chats.get(i).message_id);
+            System.out.println("chat_id: "+chats.get(i).chat_id+" message_id "+chats.get(i).message_id+" processed: "+chats.get(i).processed);
         }
     }
 
