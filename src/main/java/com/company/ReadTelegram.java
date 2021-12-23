@@ -62,7 +62,7 @@ public class ReadTelegram extends Thread {
                 showMessages();
                 logger.log(Level.WARN, "reply to message");
                 reply("this is a text");
-                clearProcessed();
+                //clearProcessed();
                 logger.log(Level.WARN, "updated messages array");
                 showMessages();
             } catch (IOException e) {
@@ -148,7 +148,6 @@ public class ReadTelegram extends Thread {
              {send(text, String.valueOf(chats.get(i).chat_id));
              }
              chats.get(i).processed=true;
-             System.out.println(chats.get(i).processed);
          }
      }
 
