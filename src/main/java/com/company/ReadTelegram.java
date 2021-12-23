@@ -4,6 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.io.*;
 import java.lang.reflect.Array;
@@ -12,6 +16,7 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Objects;
+
 
 
 public class ReadTelegram extends Thread {
@@ -25,6 +30,12 @@ public class ReadTelegram extends Thread {
     boolean processed;
     int message_id;
     ArrayList<ReadTelegram> chats = new ArrayList<>();
+    static Logger logger = Logger.getLogger(ReadTelegram.class.getName());
+
+
+
+
+
 
     public ReadTelegram() {
     }
@@ -37,18 +48,22 @@ public class ReadTelegram extends Thread {
 
     @Override
     public void run()	//Этот метод будет выполнен в побочном потоке
-    {
 
+    {
+        //BasicConfigurator.configure();
+        PropertyConfigurator.configure("src/main/java/Res/log4j.properties");
+        logger.setLevel(Level.INFO);
         while (true) {
             try {
-                System.out.println("api response:");
+                logger.log(Level.WARN, "api response:");
+
                 checkMessages();
-                System.out.println("internally created messages:");
+                logger.log(Level.WARN, "internally created messages:");
                 showMessages();
-                System.out.println("reply to message");
+                logger.log(Level.WARN, "reply to message");
                 reply("this is a text");
                 clearProcessed();
-                System.out.println("updated messages array");
+                logger.log(Level.WARN, "updated messages array");
                 showMessages();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -62,6 +77,7 @@ public class ReadTelegram extends Thread {
     }
 
     public void checkMessages() throws IOException {
+
         URL url = new URL(urlString);
         URLConnection connection = url.openConnection();
         BufferedReader in = new BufferedReader(
@@ -81,7 +97,7 @@ public class ReadTelegram extends Thread {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         String ok = jsonObject.get("ok").getAsString();
 
-        System.out.println(jsonString);
+        logger.log(Level.WARN, jsonString);
 
         jsonElement = jsonObject.get("result");
         JsonArray results = jsonElement.getAsJsonArray();
@@ -138,7 +154,7 @@ public class ReadTelegram extends Thread {
 
     public void showMessages(){
         for (int i = 0; i < chats.size(); i++) {
-            System.out.println("chat_id: "+chats.get(i).chat_id+" message_id "+chats.get(i).message_id+" processed: "+chats.get(i).processed);
+            logger.log(Level.WARN, "chat_id: "+chats.get(i).chat_id+" message_id "+chats.get(i).message_id+" processed: "+chats.get(i).processed);
         }
     }
 
